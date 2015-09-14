@@ -1,12 +1,11 @@
 package net.omsu.formatter.reader;
 
-import java.io.IOException;
-
 /**
- *
+ * Interface for reading data.
  */
 public interface Reader {
 
-    public String readLine() throws IOException;
-    public void close() throws IOException;
+    public char read();
+    public boolean hasNext();
+    public void close();
 }

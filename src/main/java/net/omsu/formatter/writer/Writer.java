@@ -1,12 +1,10 @@
 package net.omsu.formatter.writer;
 
-import java.io.IOException;
-
 /**
- *
+ * Interface for writing data.
  */
 public interface Writer {
 
-    public void writeLine(final String line) throws IOException;
-    public void close() throws IOException;
+    public void write(final String data);
+    public void close();
 }
