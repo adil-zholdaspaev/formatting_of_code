@@ -1,5 +1,6 @@
 package net.omsu.formatter.formatter;
 
+import net.omsu.formatter.exception.GeneralException;
 import net.omsu.formatter.reader.Reader;
 import net.omsu.formatter.writer.Writer;
 
@@ -8,5 +9,5 @@ import net.omsu.formatter.writer.Writer;
  */
 public interface Formatter {
 
-    public void format(final Reader reader, final Writer writer);
+    public void format(final Reader reader, final Writer writer) throws GeneralException;
 }
