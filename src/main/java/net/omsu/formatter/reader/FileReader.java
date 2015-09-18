@@ -22,7 +22,7 @@ public class FileReader implements Reader {
 
     public FileReader(final String fileName) throws GeneralException {
         if (fileName == null) {
-            throw new GeneralException("File name can't be null", new Exception());
+            throw new GeneralException("File name can't be null");
         }
 
         try {
