@@ -15,6 +15,7 @@ public class JavaCodeFormatter implements Formatter {
             .put(';', Status.SEMICOLON)
             .put('{', Status.OPEN_BRACE)
             .put('}', Status.CLOSE_BRACE)
+            .put('\n', Status.NEW_LINE)
             .put('a', Status.CHAR)
             .build();
 
