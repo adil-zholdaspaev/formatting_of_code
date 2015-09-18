@@ -1,48 +1,51 @@
 package net.omsu.formatter.reader;
 
 import com.google.common.io.Resources;
-import org.junit.After;
-import org.junit.Before;
+import net.omsu.formatter.exception.GeneralException;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
  */
 public class FileReaderTest {
 
-    private FileReader reader;
-
-    @Before
-    public void setUp() throws FileNotFoundException {
-        String fileName = "reader.java";
-
-        URL url = Resources.getResource(fileName);
-        reader = new FileReader(url.getFile());
+    public FileReader setUp(final String fileName) throws GeneralException {
+        final URL url = Resources.getResource(fileName);
+        return new FileReader(url.getFile());
     }
 
-    @After
-    public void tearDown() throws IOException {
+    public void tearDown(final FileReader reader) throws GeneralException {
         reader.close();
     }
 
     @Test
-    public void testFileReader() throws IOException {
+    public void testFileReader() throws GeneralException {
+        final FileReader reader = setUp("FileReaderTest.java");
 
-        int linesInFile = 0;
+        final String expectedValues = "This\nis\na\ntest\nfile\nreader.";
 
-        String line;
-        while ((line = reader.readLine()) != null) {
-            assertNotNull(line);
-            linesInFile++;
+        int index = 0;
+        while (reader.hasNext()) {
+            char character = reader.read();
+            assertEquals(expectedValues.charAt(index), character);
+            index++;
         }
+        assertEquals(expectedValues.length(), index);
 
-        assertEquals(6, linesInFile);
+        tearDown(reader);
+    }
+
+    @Test(expected = GeneralException.class)
+    public void testFileNotFound() throws GeneralException {
+        new FileReader("FileNotFound");
+    }
+
+    @Test(expected = GeneralException.class)
+    public void testFileNameIsNull() throws GeneralException {
+        new FileReader(null);
     }
 }

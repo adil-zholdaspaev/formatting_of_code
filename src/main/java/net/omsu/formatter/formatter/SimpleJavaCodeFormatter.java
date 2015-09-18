@@ -1,13 +1,11 @@
 package net.omsu.formatter.formatter;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.lang.String;
 
 /**
  *
  */
-public class SimpleJavaCodeFormatter implements Formatter {
+public class SimpleJavaCodeFormatter {
 
     private final static String TAB = "     ";
     private final static char OPEN_BRACE = '{';
@@ -23,9 +21,8 @@ public class SimpleJavaCodeFormatter implements Formatter {
 
     }
 
-    @Override
     public String format(final String line) {
-
+/*
         final StringBuilder formattedLine = new StringBuilder();
 
         for (String word : line.split(" ")) {
@@ -75,7 +72,8 @@ public class SimpleJavaCodeFormatter implements Formatter {
         }
 
 
-        return formattedLine.toString();
+        return formattedLine.toString();*/
+        return null;
     }
 
     private void newLine(final StringBuilder formattedLine) {
