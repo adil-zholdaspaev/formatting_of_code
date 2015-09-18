@@ -77,5 +77,4 @@ public class FileReader implements Reader {
             }
         }
     }
-
 }
