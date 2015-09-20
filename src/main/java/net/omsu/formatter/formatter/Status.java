@@ -19,6 +19,7 @@ public enum Status {
             case '{' : return OPEN_BRACE;
             case '}' : return CLOSE_BRACE;
             case '\n': return NEW_LINE;
+            case '\r': return NEW_LINE;
             default  : return CHAR;
         }
     }

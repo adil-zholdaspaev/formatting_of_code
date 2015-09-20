@@ -1,17 +1,15 @@
 package net.omsu.formatter.formatter.handlers;
 
-import java.util.function.BiFunction;
-
 /**
  *
  */
-public class OpenBraceHandler implements BiFunction<Character, Integer, String> {
+public class OpenBraceHandler implements Handler {
 
     public OpenBraceHandler() {
     }
 
     @Override
-    public String apply(Character character, Integer integer) {
-        return " {";
+    public String handle(final Character character, final int nestingLevel) {
+        return "{";
     }
 }

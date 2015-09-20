@@ -1,14 +1,15 @@
 package net.omsu.formatter.formatter.handlers;
 
-import java.util.function.BiFunction;
-
 /**
  *
  */
-public class CharHandler implements BiFunction<Character, Integer, String> {
+public class CharHandler implements Handler {
+
+    public CharHandler() {
+    }
 
     @Override
-    public String apply(Character character, Integer integer) {
+    public String handle(final Character character, final int nestingLevel) {
         return character.toString();
     }
 }

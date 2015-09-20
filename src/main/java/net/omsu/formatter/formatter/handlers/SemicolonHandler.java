@@ -1,17 +1,15 @@
 package net.omsu.formatter.formatter.handlers;
 
-import java.util.function.BiFunction;
-
 /**
  *
  */
-public class SemicolonHandler implements BiFunction<Character, Integer, String> {
+public class SemicolonHandler implements Handler {
 
     public SemicolonHandler() {
     }
 
     @Override
-    public String apply(Character character, Integer nestedLevel) {
+    public String handle(Character character, int nestingLevel) {
         return ";";
     }
 }

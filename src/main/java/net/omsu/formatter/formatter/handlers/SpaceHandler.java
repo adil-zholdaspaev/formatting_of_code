@@ -1,17 +1,15 @@
 package net.omsu.formatter.formatter.handlers;
 
-import java.util.function.BiFunction;
-
 /**
  *
  */
-public class SpaceHandler implements BiFunction<Character, Integer, String> {
+public class SpaceHandler implements Handler {
 
     public SpaceHandler() {
     }
 
     @Override
-    public String apply(Character character, Integer integer) {
+    public String handle(final Character character, final int nestingLevel) {
         return " ";
     }
 }
