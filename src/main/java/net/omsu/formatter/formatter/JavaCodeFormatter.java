@@ -47,7 +47,9 @@ public class JavaCodeFormatter implements Formatter {
                 case OPEN_BRACE: {
                     nestingLevel++;
 
-                    writer.write(mapOfHandlers.get(Status.SPACE).handle(character, nestingLevel));
+                    if (lastStatus != Status.SPACE) {
+                        writer.write(mapOfHandlers.get(Status.SPACE).handle(character, nestingLevel));
+                    }
                     writer.write(mapOfHandlers.get(Status.OPEN_BRACE).handle(character, nestingLevel));
                     writer.write(mapOfHandlers.get(Status.NEW_LINE).handle(character, nestingLevel));
                     break;
@@ -67,12 +69,12 @@ public class JavaCodeFormatter implements Formatter {
                     break;
                 }
                 case SPACE: {
+                    if (lastStatus == Status.CHAR) {
+                        writer.write(mapOfHandlers.get(Status.SPACE).handle(character, nestingLevel));
+                    }
                     break;
                 }
                 case CHAR: {
-                    if (lastStatus == Status.SPACE) {
-                        writer.write(mapOfHandlers.get(Status.SPACE).handle(character, nestingLevel));
-                    }
                     writer.write(mapOfHandlers.get(Status.CHAR).handle(character, nestingLevel));
                     break;
                 }
