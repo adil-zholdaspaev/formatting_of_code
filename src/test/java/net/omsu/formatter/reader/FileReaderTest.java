@@ -1,7 +1,7 @@
 package net.omsu.formatter.reader;
 
 import com.google.common.io.Resources;
-import net.omsu.formatter.exception.GeneralException;
+import net.omsu.formatter.exception.ReaderException;
 import org.junit.Test;
 
 import java.net.URL;
@@ -13,17 +13,17 @@ import static org.junit.Assert.assertEquals;
  */
 public class FileReaderTest {
 
-    public FileReader setUp(final String fileName) throws GeneralException {
+    public FileReader setUp(final String fileName) throws ReaderException {
         final URL url = Resources.getResource(fileName);
         return new FileReader(url.getFile());
     }
 
-    public void tearDown(final FileReader reader) throws GeneralException {
+    public void tearDown(final FileReader reader) throws ReaderException {
         reader.close();
     }
 
     @Test
-    public void testFileReader() throws GeneralException {
+    public void testFileReader() throws ReaderException {
         final FileReader reader = setUp("FileReaderTest.java");
 
         final String expectedValues = "This\nis\na\ntest\nfile\nreader.";
@@ -39,13 +39,13 @@ public class FileReaderTest {
         tearDown(reader);
     }
 
-    @Test(expected = GeneralException.class)
-    public void testFileNotFound() throws GeneralException {
+    @Test(expected = ReaderException.class)
+    public void testFileNotFound() throws ReaderException {
         new FileReader("FileNotFound");
     }
 
-    @Test(expected = GeneralException.class)
-    public void testFileNameIsNull() throws GeneralException {
+    @Test(expected = ReaderException.class)
+    public void testFileNameIsNull() throws ReaderException {
         new FileReader(null);
     }
 }

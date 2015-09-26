@@ -3,16 +3,16 @@ package net.omsu.formatter.exception;
 /**
  *
  */
-public class GeneralException extends Exception {
+public class ReaderException extends Exception {
 
     private final Exception exception;
 
-    public GeneralException(final String message) {
+    public ReaderException(final String message) {
         super(message);
         exception = new Exception();
     }
 
-    public GeneralException(final String message, final Exception exception) {
+    public ReaderException(final String message, final Exception exception) {
         super(message);
         this.exception = exception;
     }

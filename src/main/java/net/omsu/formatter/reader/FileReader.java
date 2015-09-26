@@ -1,6 +1,6 @@
 package net.omsu.formatter.reader;
 
-import net.omsu.formatter.exception.GeneralException;
+import net.omsu.formatter.exception.ReaderException;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,15 +20,15 @@ public class FileReader implements Reader {
     private Queue<Character> characterBuffer;
     private boolean isEndOfFile = false;
 
-    public FileReader(final String fileName) throws GeneralException {
+    public FileReader(final String fileName) throws ReaderException {
         if (fileName == null) {
-            throw new GeneralException("File name can't be null");
+            throw new ReaderException("File name can't be null");
         }
 
         try {
             bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
         } catch (FileNotFoundException ex) {
-            throw new GeneralException(String.format("File with name %s not found", fileName), ex);
+            throw new ReaderException(String.format("File with name %s not found", fileName), ex);
         }
 
         characterBuffer = new LinkedList<>();
@@ -36,7 +36,7 @@ public class FileReader implements Reader {
     }
 
     @Override
-    public char read() throws GeneralException {
+    public char read() throws ReaderException {
         char currentCharacter = characterBuffer.poll();
         if (!hasNext()) {
             fillBuffer();
@@ -51,16 +51,16 @@ public class FileReader implements Reader {
     }
 
     @Override
-    public void close() throws GeneralException {
+    public void close() throws ReaderException {
         isEndOfFile = true;
         try {
             bufferedReader.close();
         } catch (IOException ex) {
-            throw new GeneralException(String.format("Can not close reader"), ex);
+            throw new ReaderException(String.format("Can not close reader"), ex);
         }
     }
 
-    private void fillBuffer() throws GeneralException {
+    private void fillBuffer() throws ReaderException {
         if (hasNext() || isEndOfFile) {
             return;
         }
@@ -73,7 +73,7 @@ public class FileReader implements Reader {
                 }
                 characterBuffer.add((char) characterCode);
             } catch (IOException ex) {
-                throw new GeneralException(String.format("Can't read character from file"), ex);
+                throw new ReaderException(String.format("Can't read character from file"), ex);
             }
         }
     }

@@ -1,14 +1,9 @@
 package net.omsu.formatter.writer;
 
-import net.omsu.formatter.exception.GeneralException;
+import net.omsu.formatter.exception.WriterException;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 
 /**
  *
@@ -18,20 +13,20 @@ public class FileWriter implements Writer {
     private final BufferedWriter bufferedWriter;
     private boolean isStreamClosed = false;
 
-    public FileWriter(final String fileName) throws GeneralException {
+    public FileWriter(final String fileName) throws WriterException {
         if (fileName == null) {
-            throw new GeneralException("File name can't be null", new Exception());
+            throw new WriterException("File name can't be null", new Exception());
         }
 
         try {
             bufferedWriter = new BufferedWriter(new java.io.FileWriter(fileName));
         } catch (IOException ex) {
-            throw new GeneralException(String.format("Can't create writer {}", fileName), ex);
+            throw new WriterException(String.format("File %s can't be created or opened", fileName), ex);
         }
     }
 
     @Override
-    public void write(final String data) throws GeneralException {
+    public void write(final String data) throws WriterException {
         if (isStreamClosed) {
             return;
         }
@@ -39,16 +34,16 @@ public class FileWriter implements Writer {
         try {
             bufferedWriter.write(data);
         } catch (IOException ex) {
-            throw new GeneralException("Can't write data", ex);
+            throw new WriterException("Can't write data", ex);
         }
     }
 
     @Override
-    public void close() throws GeneralException {
+    public void close() throws WriterException {
         try {
             bufferedWriter.close();
         } catch (IOException ex) {
-            throw new GeneralException(String.format("Can not close reader"), ex);
+            throw new WriterException("Can't close file writer", ex);
         }
         isStreamClosed = true;
     }

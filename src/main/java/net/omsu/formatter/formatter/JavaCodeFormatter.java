@@ -1,7 +1,8 @@
 package net.omsu.formatter.formatter;
 
 import com.google.common.collect.ImmutableMap;
-import net.omsu.formatter.exception.GeneralException;
+import net.omsu.formatter.exception.ReaderException;
+import net.omsu.formatter.exception.WriterException;
 import net.omsu.formatter.formatter.handlers.CharHandler;
 import net.omsu.formatter.formatter.handlers.CloseBraceHandler;
 import net.omsu.formatter.formatter.handlers.Handler;
@@ -34,7 +35,7 @@ public class JavaCodeFormatter implements Formatter {
     }
 
     @Override
-    public void format(final Reader reader, final Writer writer) throws GeneralException {
+    public void format(final Reader reader, final Writer writer) throws ReaderException, WriterException {
 
         int nestingLevel = 0;
         Status lastStatus = Status.CHAR;
@@ -85,7 +86,7 @@ public class JavaCodeFormatter implements Formatter {
     }
 
 
-    public static void main(String[] args) throws GeneralException {
+    public static void main(String[] args) throws ReaderException, WriterException {
 
         Reader reader = new FileReader("format.java");
         Writer writer = new FileWriter("output.java");

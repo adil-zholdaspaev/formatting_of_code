@@ -1,6 +1,7 @@
 package net.omsu.formatter.writer;
 
-import net.omsu.formatter.exception.GeneralException;
+import net.omsu.formatter.exception.ReaderException;
+import net.omsu.formatter.exception.WriterException;
 import net.omsu.formatter.reader.FileReader;
 import org.junit.Test;
 
@@ -11,16 +12,16 @@ import static org.junit.Assert.assertEquals;
  */
 public class FileWriterTest {
 
-    public FileWriter setUp(final String fileName) throws GeneralException {
+    public FileWriter setUp(final String fileName) throws WriterException {
         return new FileWriter(fileName);
     }
 
-    public void tearDown(final FileWriter reader) throws GeneralException {
+    public void tearDown(final FileWriter reader) throws WriterException {
         reader.close();
     }
 
     @Test
-    public void testFileWriter() throws GeneralException {
+    public void testFileWriter() throws WriterException, ReaderException {
         final String fileName = "FileWriterTest.java";
 
         final FileWriter writer = setUp(fileName);
@@ -40,7 +41,7 @@ public class FileWriterTest {
     }
 
     @Test
-    public void testFileWriterClose() throws GeneralException {
+    public void testFileWriterClose() throws WriterException, ReaderException {
         final String fileName = "FileWriterTest.java";
 
         final FileWriter writer = setUp(fileName);
@@ -60,8 +61,8 @@ public class FileWriterTest {
         reader.close();
     }
 
-    @Test(expected = GeneralException.class)
-    public void testFileNameIsNull() throws GeneralException {
+    @Test(expected = WriterException.class)
+    public void testFileNameIsNull() throws WriterException {
         new FileWriter(null);
     }
 }
