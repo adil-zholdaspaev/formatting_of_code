@@ -84,17 +84,4 @@ public class JavaCodeFormatter implements Formatter {
             lastStatus = currentStatus;
         }
     }
-
-
-    public static void main(String[] args) throws ReaderException, WriterException {
-
-        Reader reader = new FileReader("format.java");
-        Writer writer = new FileWriter("output.java");
-
-        Formatter formatter = new JavaCodeFormatter();
-        formatter.format(reader, writer);
-
-        reader.close();
-        writer.close();
-    }
 }
