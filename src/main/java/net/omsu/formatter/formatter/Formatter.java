@@ -10,5 +10,5 @@ import net.omsu.formatter.writer.Writer;
  */
 public interface Formatter {
 
-    public void format(final Reader reader, final Writer writer) throws ReaderException, WriterException;
+    void format(final Reader reader, final Writer writer) throws ReaderException, WriterException;
 }

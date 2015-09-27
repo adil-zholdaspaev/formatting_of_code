@@ -1,87 +1,49 @@
 package net.omsu.formatter.formatter;
 
-import com.google.common.collect.ImmutableMap;
 import net.omsu.formatter.exception.ReaderException;
 import net.omsu.formatter.exception.WriterException;
-import net.omsu.formatter.formatter.handlers.CharHandler;
-import net.omsu.formatter.formatter.handlers.CloseBraceHandler;
+import net.omsu.formatter.formatter.context.Context;
+import net.omsu.formatter.formatter.context.ContextKeys;
 import net.omsu.formatter.formatter.handlers.Handler;
-import net.omsu.formatter.formatter.handlers.NewLineHandler;
-import net.omsu.formatter.formatter.handlers.OpenBraceHandler;
-import net.omsu.formatter.formatter.handlers.SemicolonHandler;
-import net.omsu.formatter.formatter.handlers.SpaceHandler;
-import net.omsu.formatter.reader.FileReader;
 import net.omsu.formatter.reader.Reader;
-import net.omsu.formatter.writer.FileWriter;
 import net.omsu.formatter.writer.Writer;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
  */
 public class JavaCodeFormatter implements Formatter {
 
-    private final Map<Status, Handler> mapOfHandlers = ImmutableMap.<Status, Handler>builder()
-            .put(Status.CHAR, new CharHandler())
-            .put(Status.SPACE, new SpaceHandler())
-            .put(Status.OPEN_BRACE, new OpenBraceHandler())
-            .put(Status.CLOSE_BRACE, new CloseBraceHandler())
-            .put(Status.SEMICOLON, new SemicolonHandler())
-            .put(Status.NEW_LINE, new NewLineHandler())
-            .build();
+    private final List<Handler> handles;
 
-    public JavaCodeFormatter() {
+    public JavaCodeFormatter(final List<Handler> handlers) {
+        this.handles = handlers;
     }
 
     @Override
     public void format(final Reader reader, final Writer writer) throws ReaderException, WriterException {
 
-        int nestingLevel = 0;
-        Status lastStatus = Status.CHAR;
+        final Context context = new Context();
+        context.set(ContextKeys.LAST_CHARACTER, '\n');
+        context.set(ContextKeys.NESTING_LEVEL, 0);
 
         while (reader.hasNext()) {
             char character = reader.read();
-            Status currentStatus = Status.getStatus(character);
+            context.set(ContextKeys.CURRENT_CHARACTER, character);
 
-            switch (currentStatus) {
-                case OPEN_BRACE: {
-                    nestingLevel++;
+            handles.forEach(handler -> handler.handle(context));
 
-                    if (lastStatus != Status.SPACE) {
-                        writer.write(mapOfHandlers.get(Status.SPACE).handle(character, nestingLevel));
-                    }
-                    writer.write(mapOfHandlers.get(Status.OPEN_BRACE).handle(character, nestingLevel));
-                    writer.write(mapOfHandlers.get(Status.NEW_LINE).handle(character, nestingLevel));
-                    break;
-                }
-                case CLOSE_BRACE: {
-                    nestingLevel--;
+            Optional<String> result = context.get(ContextKeys.RESULT, String.class);
 
-                    writer.write(mapOfHandlers.get(Status.NEW_LINE).handle(character, nestingLevel));
-                    writer.write(mapOfHandlers.get(Status.CLOSE_BRACE).handle(character, nestingLevel));
-                    writer.write(mapOfHandlers.get(Status.NEW_LINE).handle(character, nestingLevel));
-                    break;
-                }
-                case SEMICOLON: {
-
-                    writer.write(mapOfHandlers.get(Status.SEMICOLON).handle(character, nestingLevel));
-                    writer.write(mapOfHandlers.get(Status.NEW_LINE).handle(character, nestingLevel));
-                    break;
-                }
-                case SPACE: {
-                    if (lastStatus == Status.CHAR) {
-                        writer.write(mapOfHandlers.get(Status.SPACE).handle(character, nestingLevel));
-                    }
-                    break;
-                }
-                case CHAR: {
-                    writer.write(mapOfHandlers.get(Status.CHAR).handle(character, nestingLevel));
-                    break;
-                }
+            if (result.isPresent()) {
+                writer.write(result.get());
             }
 
-            lastStatus = currentStatus;
+            context.set(ContextKeys.LAST_CHARACTER, character);
+            context.remove(ContextKeys.CURRENT_CHARACTER);
+            context.remove(ContextKeys.RESULT);
         }
     }
 }

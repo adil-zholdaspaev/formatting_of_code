@@ -1,5 +1,10 @@
 package net.omsu.formatter.formatter.handlers;
 
+import net.omsu.formatter.formatter.context.Context;
+import net.omsu.formatter.formatter.context.ContextKeys;
+
+import java.util.Optional;
+
 /**
  *
  */
@@ -9,7 +14,28 @@ public class CloseBraceHandler implements Handler {
     }
 
     @Override
-    public String handle(final Character character, final int nestingLevel) {
-        return "}";
+    public void handle(Context context) {
+        Optional<Character> lastChar = context.get(ContextKeys.LAST_CHARACTER, Character.class);
+        Optional<Character> currentChar = context.get(ContextKeys.CURRENT_CHARACTER, Character.class);
+        Optional<Integer> nestingLevel = context.get(ContextKeys.NESTING_LEVEL, Integer.class);
+
+        if (!currentChar.get().equals('}')) {
+            return;
+        }
+
+        context.set(ContextKeys.NESTING_LEVEL, nestingLevel.get() - 1);
+
+        final StringBuilder result = new StringBuilder();
+        result.append('\n');
+        for (int i = 0; i < nestingLevel.get() - 1; i++) {
+            result.append("    ");
+        }
+        result.append('}');
+        result.append('\n');
+        for (int i = 0; i < nestingLevel.get() - 1; i++) {
+            result.append("    ");
+        }
+
+        context.set(ContextKeys.RESULT, result.toString());
     }
 }
