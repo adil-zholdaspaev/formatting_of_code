@@ -1,4 +1,4 @@
-package net.omsu.formatter.exception;
+package net.omsu.formatter.reader;
 
 /**
  *

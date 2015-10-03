@@ -1,7 +1,5 @@
 package net.omsu.formatter.writer;
 
-import net.omsu.formatter.exception.WriterException;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
 package net.omsu.formatter.formatter;
 
-import net.omsu.formatter.exception.ReaderException;
-import net.omsu.formatter.exception.WriterException;
+import net.omsu.formatter.reader.ReaderException;
+import net.omsu.formatter.writer.WriterException;
 import net.omsu.formatter.formatter.context.Context;
 import net.omsu.formatter.formatter.context.factory.ContextFactory;
 import net.omsu.formatter.formatter.handlers.Handler;

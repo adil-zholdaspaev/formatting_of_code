@@ -1,7 +1,6 @@
 package net.omsu.formatter.writer;
 
-import net.omsu.formatter.exception.ReaderException;
-import net.omsu.formatter.exception.WriterException;
+import net.omsu.formatter.reader.ReaderException;
 import net.omsu.formatter.reader.FileReader;
 import org.junit.Test;
 

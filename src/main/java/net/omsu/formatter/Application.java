@@ -1,7 +1,7 @@
 package net.omsu.formatter;
 
-import net.omsu.formatter.exception.ReaderException;
-import net.omsu.formatter.exception.WriterException;
+import net.omsu.formatter.reader.ReaderException;
+import net.omsu.formatter.writer.WriterException;
 import net.omsu.formatter.formatter.Formatter;
 import net.omsu.formatter.formatter.JavaCodeFormatter;
 import net.omsu.formatter.formatter.context.factory.ContextFactory;

@@ -1,7 +1,5 @@
 package net.omsu.formatter.reader;
 
-import net.omsu.formatter.exception.ReaderException;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;

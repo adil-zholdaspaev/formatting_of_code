@@ -1,7 +1,6 @@
 package net.omsu.formatter.reader;
 
 import com.google.common.io.Resources;
-import net.omsu.formatter.exception.ReaderException;
 import org.junit.Test;
 
 import java.net.URL;

@@ -1,7 +1,5 @@
 package net.omsu.formatter.writer;
 
-import net.omsu.formatter.exception.WriterException;
-
 /**
  * Interface for writing data.
  */
