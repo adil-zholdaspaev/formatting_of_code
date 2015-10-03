@@ -4,6 +4,8 @@ import net.omsu.formatter.exception.ReaderException;
 import net.omsu.formatter.exception.WriterException;
 import net.omsu.formatter.formatter.Formatter;
 import net.omsu.formatter.formatter.JavaCodeFormatter;
+import net.omsu.formatter.formatter.context.factory.ContextFactory;
+import net.omsu.formatter.formatter.context.factory.JavaContextFactory;
 import net.omsu.formatter.formatter.handlers.CharHandler;
 import net.omsu.formatter.formatter.handlers.CloseBraceHandler;
 import net.omsu.formatter.formatter.handlers.Handler;
@@ -34,7 +36,9 @@ public class Application {
         handlers.add(new SpaceHandler());
         handlers.add(new CharHandler());
 
-        Formatter formatter = new JavaCodeFormatter(handlers);
+        ContextFactory javaContextFactory = new JavaContextFactory();
+
+        Formatter formatter = new JavaCodeFormatter(handlers, javaContextFactory);
         formatter.format(reader, writer);
 
         reader.close();

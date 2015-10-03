@@ -1,9 +1,6 @@
 package net.omsu.formatter.formatter.handlers;
 
 import net.omsu.formatter.formatter.context.Context;
-import net.omsu.formatter.formatter.context.ContextKeys;
-
-import java.util.Optional;
 
 /**
  *
@@ -15,26 +12,26 @@ public class OpenBraceHandler implements Handler {
 
     @Override
     public void handle(Context context) {
-        Optional<Character> lastChar = context.get(ContextKeys.LAST_CHARACTER, Character.class);
-        Optional<Character> currentChar = context.get(ContextKeys.CURRENT_CHARACTER, Character.class);
-        Optional<Integer> nestingLevel = context.get(ContextKeys.NESTING_LEVEL, Integer.class);
+        Character lastCharacter = context.getLastCharacter();
+        Character currentCharacter = context.getCurrentCharacter();
+        int nestingLevel = context.getNestingLevel();
 
-        if (!currentChar.get().equals('{')) {
+        if (!currentCharacter.equals('{')) {
             return;
         }
 
-        context.set(ContextKeys.NESTING_LEVEL, nestingLevel.get() + 1);
+        context.setNestingLevel(nestingLevel + 1);
 
         final StringBuilder result = new StringBuilder();
-        if (!lastChar.get().equals(' ')) {
+        if (!lastCharacter.equals(' ')) {
             result.append(' ');
         }
         result.append('{');
         result.append('\n');
-        for (int i = 0; i < nestingLevel.get() + 1; i++) {
+        for (int i = 0; i < nestingLevel + 1; i++) {
             result.append("    ");
         }
 
-        context.set(ContextKeys.RESULT, result.toString());
+        context.setFormattedString(result.toString());
     }
 }

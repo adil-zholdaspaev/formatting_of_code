@@ -1,9 +1,6 @@
 package net.omsu.formatter.formatter.handlers;
 
 import net.omsu.formatter.formatter.context.Context;
-import net.omsu.formatter.formatter.context.ContextKeys;
-
-import java.util.Optional;
 
 /**
  *
@@ -15,24 +12,22 @@ public class SpaceHandler implements Handler {
 
     @Override
     public void handle(Context context) {
-        Optional<Character> lastChar = context.get(ContextKeys.LAST_CHARACTER, Character.class);
-        Optional<Character> currentChar = context.get(ContextKeys.CURRENT_CHARACTER, Character.class);
-        Optional<Integer> nestingLevel = context.get(ContextKeys.NESTING_LEVEL, Integer.class);
+        Character lastCharacter = context.getLastCharacter();
+        Character currentCharacter = context.getCurrentCharacter();
 
-        if (!currentChar.get().equals(' ')) {
+        if (!currentCharacter.equals(' ')) {
             return;
         }
 
-        if (lastChar.get().equals('{') ||
-                lastChar.get().equals('}') ||
-                lastChar.get().equals(' ') ||
-                lastChar.get().equals(';') ||
-                lastChar.get().equals('\n')) {
+        if (lastCharacter.equals('{') ||
+                lastCharacter.equals('}') ||
+                lastCharacter.equals(' ') ||
+                lastCharacter.equals(';') ||
+                lastCharacter.equals('\n')) {
 
-            context.set(ContextKeys.RESULT, "");
             return;
         }
 
-        context.set(ContextKeys.RESULT, " ");
+        context.setFormattedString(" ");
     }
 }
