@@ -7,7 +7,7 @@ public class JavaFormatterContext implements Context {
 
     private Character lastCharacter;
     private Character currentCharacter;
-    private String formatterString;
+    private String formatterString = "";
     private int nestingLevel;
 
     public JavaFormatterContext() {
