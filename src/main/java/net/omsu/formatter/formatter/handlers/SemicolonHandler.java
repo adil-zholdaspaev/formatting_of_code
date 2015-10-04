@@ -1,15 +1,17 @@
 package net.omsu.formatter.formatter.handlers;
 
 import net.omsu.formatter.formatter.context.Context;
-
-import java.util.Optional;
+import net.omsu.formatter.formatter.context.JavaPermanentContext;
 
 /**
  *
  */
 public class SemicolonHandler implements Handler {
 
-    public SemicolonHandler() {
+    private final JavaPermanentContext permanentContext;
+
+    public SemicolonHandler(final JavaPermanentContext permanentContext) {
+        this.permanentContext = permanentContext;
     }
 
     @Override
@@ -17,15 +19,15 @@ public class SemicolonHandler implements Handler {
         Character currentCharacter = context.getCurrentCharacter();
         int nestingLevel = context.getNestingLevel();
 
-        if (!currentCharacter.equals(';')) {
+        if (!currentCharacter.equals(permanentContext.getSemicolon())) {
             return;
         }
 
         final StringBuilder result = new StringBuilder();
-        result.append(';');
-        result.append('\n');
+        result.append(permanentContext.getSemicolon());
+        result.append(permanentContext.getNewLine());
         for (int i = 0; i < nestingLevel; i++) {
-            result.append("    ");
+            result.append(permanentContext.getTab());
         }
 
         context.setFormattedString(result.toString());

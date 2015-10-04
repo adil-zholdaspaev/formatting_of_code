@@ -1,13 +1,17 @@
 package net.omsu.formatter.formatter.handlers;
 
 import net.omsu.formatter.formatter.context.Context;
+import net.omsu.formatter.formatter.context.JavaPermanentContext;
 
 /**
  *
  */
 public class SpaceHandler implements Handler {
 
-    public SpaceHandler() {
+    private final JavaPermanentContext permanentContext;
+
+    public SpaceHandler(final JavaPermanentContext permanentContext) {
+        this.permanentContext = permanentContext;
     }
 
     @Override
@@ -15,19 +19,19 @@ public class SpaceHandler implements Handler {
         Character lastCharacter = context.getLastCharacter();
         Character currentCharacter = context.getCurrentCharacter();
 
-        if (!currentCharacter.equals(' ')) {
+        if (!currentCharacter.equals(permanentContext.getSpace())) {
             return;
         }
 
-        if (lastCharacter.equals('{') ||
-                lastCharacter.equals('}') ||
-                lastCharacter.equals(' ') ||
-                lastCharacter.equals(';') ||
-                lastCharacter.equals('\n')) {
+        if (lastCharacter.equals(permanentContext.getOpenBrace()) ||
+                lastCharacter.equals(permanentContext.getCloseBrace()) ||
+                lastCharacter.equals(permanentContext.getSpace()) ||
+                lastCharacter.equals(permanentContext.getSemicolon()) ||
+                lastCharacter.equals(permanentContext.getNewLine())) {
 
             return;
         }
 
-        context.setFormattedString(" ");
+        context.setFormattedString(String.valueOf(permanentContext.getSpace()));
     }
 }

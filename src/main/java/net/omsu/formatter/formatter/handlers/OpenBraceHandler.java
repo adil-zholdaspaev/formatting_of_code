@@ -1,13 +1,17 @@
 package net.omsu.formatter.formatter.handlers;
 
 import net.omsu.formatter.formatter.context.Context;
+import net.omsu.formatter.formatter.context.JavaPermanentContext;
 
 /**
  *
  */
 public class OpenBraceHandler implements Handler {
 
-    public OpenBraceHandler() {
+    private final JavaPermanentContext permanentContext;
+
+    public OpenBraceHandler(final JavaPermanentContext permanentContext) {
+        this.permanentContext = permanentContext;
     }
 
     @Override
@@ -16,20 +20,20 @@ public class OpenBraceHandler implements Handler {
         Character currentCharacter = context.getCurrentCharacter();
         int nestingLevel = context.getNestingLevel();
 
-        if (!currentCharacter.equals('{')) {
+        if (!currentCharacter.equals(permanentContext.getOpenBrace())) {
             return;
         }
 
         context.setNestingLevel(nestingLevel + 1);
 
         final StringBuilder result = new StringBuilder();
-        if (!lastCharacter.equals(' ')) {
-            result.append(' ');
+        if (!lastCharacter.equals(permanentContext.getSpace())) {
+            result.append(permanentContext.getSpace());
         }
-        result.append('{');
-        result.append('\n');
+        result.append(permanentContext.getOpenBrace());
+        result.append(permanentContext.getNewLine());
         for (int i = 0; i < nestingLevel + 1; i++) {
-            result.append("    ");
+            result.append(permanentContext.getTab());
         }
 
         context.setFormattedString(result.toString());

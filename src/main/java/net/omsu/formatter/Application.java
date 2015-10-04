@@ -1,5 +1,6 @@
 package net.omsu.formatter;
 
+import net.omsu.formatter.formatter.context.JavaPermanentContext;
 import net.omsu.formatter.reader.ReaderException;
 import net.omsu.formatter.writer.WriterException;
 import net.omsu.formatter.formatter.Formatter;
@@ -29,12 +30,14 @@ public class Application {
         Reader reader = new FileReader("format.java");
         Writer writer = new FileWriter("output.java");
 
+        JavaPermanentContext permanentContext = JavaPermanentContext.newBuilder().build();
+
         List<Handler> handlers = new LinkedList<>();
-        handlers.add(new OpenBraceHandler());
-        handlers.add(new CloseBraceHandler());
-        handlers.add(new SemicolonHandler());
-        handlers.add(new SpaceHandler());
-        handlers.add(new CharHandler());
+        handlers.add(new OpenBraceHandler(permanentContext));
+        handlers.add(new CloseBraceHandler(permanentContext));
+        handlers.add(new SemicolonHandler(permanentContext));
+        handlers.add(new SpaceHandler(permanentContext));
+        handlers.add(new CharHandler(permanentContext));
 
         ContextFactory javaContextFactory = new JavaContextFactory();
 
