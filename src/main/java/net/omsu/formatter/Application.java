@@ -1,7 +1,7 @@
 package net.omsu.formatter;
 
-import net.omsu.formatter.ioc.DependencyFactory;
-import net.omsu.formatter.ioc.GuiceDependencyFactory;
+import net.omsu.formatter.ioc.BeansFactory;
+import net.omsu.formatter.ioc.JavaBeansFactory;
 import net.omsu.formatter.formatter.Formatter;
 import net.omsu.formatter.reader.Reader;
 import net.omsu.formatter.writer.Writer;
@@ -12,12 +12,12 @@ import net.omsu.formatter.writer.Writer;
 public class Application {
 
     public static void main(String[] args) throws Exception {
-        DependencyFactory dependencyFactory = new GuiceDependencyFactory();
+        BeansFactory beansFactory = new JavaBeansFactory();
 
-        Reader reader = dependencyFactory.buildReader();
-        Writer writer = dependencyFactory.buildWriter();
+        Reader reader = beansFactory.buildReader();
+        Writer writer = beansFactory.buildWriter();
 
-        Formatter formatter = dependencyFactory.buildFormatter();
+        Formatter formatter = beansFactory.buildFormatter();
         formatter.format(reader, writer);
 
         reader.close();

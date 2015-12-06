@@ -16,9 +16,9 @@ import java.util.List;
 /**
  *
  */
-public class GuiceDependencyFactory implements DependencyFactory {
+public class JavaBeansFactory implements BeansFactory {
 
-    public GuiceDependencyFactory() {
+    public JavaBeansFactory() {
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  *
  */
-public interface DependencyFactory {
+public interface BeansFactory {
 
     Reader buildReader() throws NoSuchMethodException, ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException;
     Writer buildWriter() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException;
