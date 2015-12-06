@@ -1,26 +1,50 @@
 {
   "reader": {
     "class": "net.omsu.formatter.reader.FileReader",
-      "params": [
-        {
-          "file": "format.java"
-        }
-      ]
+    "param": {
+      "file": "format.java"
+    }
   },
   "writer": {
     "class": "net.omsu.formatter.writer.FileWriter",
-    "params": [
-      {
-        "file": "output.java"
-      }
-    ]
+    "param": {
+      "file": "output.java"
+    }
   },
   "formatter": {
-    "class": "net.omsu.formatter.formatter.JavaCodeFormatter",
-    "params": [
-      {
-        "file": "format.java"
-      }
-    ]
+    "class": "net.omsu.formatter.formatter.JavaCodeFormatter"
+  },
+  "handlers": [
+    {
+      "class": "net.omsu.formatter.formatter.handlers.CharHandler"
+    },
+    {
+      "class": "net.omsu.formatter.formatter.handlers.CloseBraceHandler"
+    },
+    {
+      "class": "net.omsu.formatter.formatter.handlers.OpenBraceHandler"
+    },
+    {
+      "class": "net.omsu.formatter.formatter.handlers.SemicolonHandler"
+    },
+    {
+      "class": "net.omsu.formatter.formatter.handlers.SpaceHandler"
+    }
+  ],
+  "context": {
+    "class": "net.omsu.formatter.formatter.context.JavaPermanentContext",
+    "params": {
+      "open-brace": "{",
+      "close-brace": "}",
+      "semicolon": ";",
+      "space": " ",
+      "line-separator": "\n",
+      "tab": "    ",
+      "open-bracket": "(",
+      "close-bracket": ")"
+    }
+  },
+  "context-factory": {
+    "class": "net.omsu.formatter.formatter.context.factory.JavaContextFactory"
   }
 }
