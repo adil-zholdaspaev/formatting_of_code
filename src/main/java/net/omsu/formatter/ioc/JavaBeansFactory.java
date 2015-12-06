@@ -52,7 +52,6 @@ public class JavaBeansFactory implements BeansFactory {
 
         ContextFactory javaContextFactory = new JavaContextFactory();
 
-
         Class readerClass = Class.forName("net.omsu.formatter.formatter.JavaCodeFormatter");
         Constructor constructor = readerClass.getConstructor(List.class, ContextFactory.class);
         Formatter formatter = (Formatter) constructor.newInstance(handlers, javaContextFactory);

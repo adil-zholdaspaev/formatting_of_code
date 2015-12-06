@@ -1,0 +1,26 @@
+{
+  "reader": {
+    "class": "net.omsu.formatter.reader.FileReader",
+      "params": [
+        {
+          "file": "format.java"
+        }
+      ]
+  },
+  "writer": {
+    "class": "net.omsu.formatter.writer.FileWriter",
+    "params": [
+      {
+        "file": "output.java"
+      }
+    ]
+  },
+  "formatter": {
+    "class": "net.omsu.formatter.formatter.JavaCodeFormatter",
+    "params": [
+      {
+        "file": "format.java"
+      }
+    ]
+  }
+}
