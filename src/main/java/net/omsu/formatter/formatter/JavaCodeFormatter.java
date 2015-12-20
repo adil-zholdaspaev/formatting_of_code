@@ -1,7 +1,5 @@
 package net.omsu.formatter.formatter;
 
-import net.omsu.formatter.reader.ReaderException;
-import net.omsu.formatter.writer.WriterException;
 import net.omsu.formatter.formatter.context.Context;
 import net.omsu.formatter.formatter.context.factory.ContextFactory;
 import net.omsu.formatter.formatter.handlers.Handler;
@@ -24,7 +22,7 @@ public class JavaCodeFormatter implements Formatter {
     }
 
     @Override
-    public void format(final Reader reader, final Writer writer) throws ReaderException, WriterException {
+    public void format(final Reader reader, final Writer writer) {
 
         final Context context = contextFactory.getContext();
         context.setLastCharacter('\n');

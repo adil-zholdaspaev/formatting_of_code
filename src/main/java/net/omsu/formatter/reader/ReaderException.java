@@ -3,7 +3,7 @@ package net.omsu.formatter.reader;
 /**
  *
  */
-public class ReaderException extends Exception {
+public class ReaderException extends RuntimeException {
 
     public ReaderException(String message) {
         super(message);
