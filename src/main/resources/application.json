@@ -16,19 +16,19 @@
   },
   "handlers": [
     {
-      "class": "net.omsu.formatter.formatter.handlers.CharHandler"
+      "class": "net.omsu.formatter.formatter.handlers.OpenBraceHandler"
     },
     {
       "class": "net.omsu.formatter.formatter.handlers.CloseBraceHandler"
-    },
-    {
-      "class": "net.omsu.formatter.formatter.handlers.OpenBraceHandler"
     },
     {
       "class": "net.omsu.formatter.formatter.handlers.SemicolonHandler"
     },
     {
       "class": "net.omsu.formatter.formatter.handlers.SpaceHandler"
+    },
+    {
+      "class": "net.omsu.formatter.formatter.handlers.CharHandler"
     }
   ],
   "context": {
