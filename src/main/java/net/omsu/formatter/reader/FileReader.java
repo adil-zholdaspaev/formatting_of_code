@@ -1,5 +1,8 @@
 package net.omsu.formatter.reader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,6 +11,8 @@ import java.io.IOException;
  *
  */
 public class FileReader implements Reader {
+
+    private static final Logger log = LoggerFactory.getLogger(FileReader.class);
 
     private final BufferedReader bufferedReader;
     private Character currentCharacter;
@@ -22,6 +27,7 @@ public class FileReader implements Reader {
         try {
             bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
         } catch (FileNotFoundException ex) {
+            log.error("File {} can't be opened", fileName, ex);
             throw new ReaderException(String.format("File %s can't be opened", fileName), ex);
         }
 
@@ -52,6 +58,7 @@ public class FileReader implements Reader {
         try {
             bufferedReader.close();
         } catch (IOException ex) {
+            log.error("Can't close the file reader", ex);
             throw new ReaderException("Can't close the file reader", ex);
         }
     }
@@ -64,6 +71,7 @@ public class FileReader implements Reader {
             }
             return (char) characterCode;
         } catch (IOException ex) {
+            log.error("Can't read character from file", ex);
             throw new ReaderException("Can't read character from file", ex);
         }
     }
