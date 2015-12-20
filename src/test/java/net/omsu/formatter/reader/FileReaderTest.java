@@ -3,6 +3,7 @@ package net.omsu.formatter.reader;
 import com.google.common.io.Resources;
 import org.junit.Test;
 
+import java.io.File;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +26,7 @@ public class FileReaderTest {
     public void testFileReader() throws ReaderException {
         final FileReader reader = setUp("FileReaderTest.java");
 
-        final String expectedValues = "This\nis\na\ntest\nfile\nreader.";
+        final String expectedValues = "This" + System.lineSeparator() + "is.";
 
         int index = 0;
         while (reader.hasNext()) {

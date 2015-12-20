@@ -24,7 +24,7 @@ public class FileWriterTest {
         final String fileName = "FileWriterTest.java";
 
         final FileWriter writer = setUp(fileName);
-        final String expectedValues = "This\nis\na\ntest\nfile\nreader.";
+        final String expectedValues = "This" + System.lineSeparator() + "is.";
         writer.write(expectedValues);
         tearDown(writer);
 
