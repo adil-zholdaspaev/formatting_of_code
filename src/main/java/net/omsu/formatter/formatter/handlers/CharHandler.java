@@ -15,7 +15,7 @@ public class CharHandler implements Handler {
     }
 
     @Override
-    public void handle(final Context context) {
+    public boolean handle(final Context context) {
         Character currentCharacter = context.getCurrentCharacter();
 
         if (currentCharacter.equals(permanentContext.getOpenBrace()) ||
@@ -23,9 +23,10 @@ public class CharHandler implements Handler {
                 currentCharacter.equals(permanentContext.getSpace()) ||
                 currentCharacter.equals(permanentContext.getSemicolon()) ||
                 currentCharacter.equals(permanentContext.getNewLine())) {
-            return;
+            return false;
         }
 
         context.setFormattedString(currentCharacter.toString());
+        return true;
     }
 }

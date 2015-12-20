@@ -7,5 +7,5 @@ import net.omsu.formatter.formatter.context.Context;
  */
 public interface Handler {
 
-    void handle(Context context);
+    boolean handle(Context context);
 }

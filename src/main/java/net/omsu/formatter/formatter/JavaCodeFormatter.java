@@ -30,7 +30,13 @@ public class JavaCodeFormatter implements Formatter {
 
         while (reader.hasNext()) {
             context.setCurrentCharacter(reader.read());
-            handlers.forEach(handler -> handler.handle(context));
+
+            for (Handler handler : handlers) {
+                boolean isHandled = handler.handle(context);
+                if (isHandled) {
+                    break;
+                }
+            }
 
             writer.write(context.getFormattedString());
 

@@ -15,12 +15,12 @@ public class CloseBraceHandler implements Handler {
     }
 
     @Override
-    public void handle(Context context) {
+    public boolean handle(Context context) {
         Character currentCharacter = context.getCurrentCharacter();
         int nestingLevel = context.getNestingLevel();
 
         if (!currentCharacter.equals(permanentContext.getCloseBrace())) {
-            return;
+            return false;
         }
 
         context.setNestingLevel(nestingLevel - 1);
@@ -37,5 +37,6 @@ public class CloseBraceHandler implements Handler {
         }
 
         context.setFormattedString(result.toString());
+        return true;
     }
 }
