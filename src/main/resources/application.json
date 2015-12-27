@@ -5,6 +5,9 @@
       "file": "format.java"
     }
   },
+  "reader-strategy": {
+    "class": "net.omsu.formatter.formatter.strategy.SignReaderStrategy"
+  },
   "writer": {
     "class": "net.omsu.formatter.writer.FileWriter",
     "param": {
@@ -16,18 +19,23 @@
   },
   "handlers": [
     {
+      "key"  : "{",
       "class": "net.omsu.formatter.formatter.handlers.OpenBraceHandler"
     },
     {
+      "key"  : "}",
       "class": "net.omsu.formatter.formatter.handlers.CloseBraceHandler"
     },
     {
+      "key"  : ";",
       "class": "net.omsu.formatter.formatter.handlers.SemicolonHandler"
     },
     {
+      "key"  : " ",
       "class": "net.omsu.formatter.formatter.handlers.SpaceHandler"
     },
     {
+      "key"  : "default",
       "class": "net.omsu.formatter.formatter.handlers.CharHandler"
     }
   ],
@@ -39,9 +47,7 @@
       "semicolon": ";",
       "space": " ",
       "line-separator": "\n",
-      "tab": "    ",
-      "open-bracket": "(",
-      "close-bracket": ")"
+      "tab": "    "
     }
   },
   "context-factory": {

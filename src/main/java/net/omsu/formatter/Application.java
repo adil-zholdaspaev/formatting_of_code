@@ -1,5 +1,6 @@
 package net.omsu.formatter;
 
+import net.omsu.formatter.formatter.strategy.ReaderStrategy;
 import net.omsu.formatter.ioc.BeansFactory;
 import net.omsu.formatter.ioc.JavaBeansFactory;
 import net.omsu.formatter.formatter.Formatter;
@@ -14,13 +15,13 @@ public class Application {
     public static void main(String[] args) {
         BeansFactory beansFactory = new JavaBeansFactory();
 
-        Reader reader = beansFactory.buildReader();
+        ReaderStrategy readerStrategy = beansFactory.buildReaderStrategy();
         Writer writer = beansFactory.buildWriter();
 
         Formatter formatter = beansFactory.buildFormatter();
-        formatter.format(reader, writer);
+        formatter.format(readerStrategy, writer);
 
-        reader.close();
+        readerStrategy.close();
         writer.close();
     }
 }

@@ -5,13 +5,13 @@ package net.omsu.formatter.formatter.context;
  */
 public interface Context {
 
-    Character getCurrentCharacter();
-    Character getLastCharacter();
+    String getCurrentCharacters();
+    String getLastCharacters();
     String getFormattedString();
     int getNestingLevel();
 
-    void setCurrentCharacter(Character currentCharacter);
-    void setLastCharacter(Character lastCharacter);
+    void setCurrentCharacters(String currentCharacters);
+    void setLastCharacters(String lastCharacters);
     void setFormattedString(String formattedString);
     void setNestingLevel(int nestingLevel);
 }

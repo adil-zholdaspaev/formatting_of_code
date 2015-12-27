@@ -22,7 +22,7 @@ public class FileWriter implements Writer {
         }
 
         try {
-            bufferedWriter = new BufferedWriter(new java.io.FileWriter(fileName));
+            bufferedWriter = new BufferedWriter(new java.io.FileWriter(fileName, false));
         } catch (IOException ex) {
             log.error("File {} can't be created or opened", fileName, ex);
             throw new WriterException(String.format("File %s can't be created or opened", fileName), ex);

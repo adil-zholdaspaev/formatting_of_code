@@ -5,8 +5,8 @@ package net.omsu.formatter.formatter.context;
  */
 public class JavaFormatterContext implements Context {
 
-    private Character lastCharacter;
-    private Character currentCharacter;
+    private String lastCharacters;
+    private String currentCharacters;
     private String formatterString = "";
     private int nestingLevel;
 
@@ -14,13 +14,13 @@ public class JavaFormatterContext implements Context {
     }
 
     @Override
-    public Character getCurrentCharacter() {
-        return currentCharacter;
+    public String getCurrentCharacters() {
+        return currentCharacters;
     }
 
     @Override
-    public Character getLastCharacter() {
-        return lastCharacter;
+    public String getLastCharacters() {
+        return lastCharacters;
     }
 
     @Override
@@ -34,13 +34,13 @@ public class JavaFormatterContext implements Context {
     }
 
     @Override
-    public void setCurrentCharacter(Character currentCharacter) {
-        this.currentCharacter = currentCharacter;
+    public void setCurrentCharacters(String currentCharacters) {
+        this.currentCharacters = currentCharacters;
     }
 
     @Override
-    public void setLastCharacter(Character lastCharacter) {
-        this.lastCharacter = lastCharacter;
+    public void setLastCharacters(String lastCharacters) {
+        this.lastCharacters = lastCharacters;
     }
 
     @Override
@@ -61,17 +61,18 @@ public class JavaFormatterContext implements Context {
         JavaFormatterContext that = (JavaFormatterContext) o;
 
         if (nestingLevel != that.nestingLevel) return false;
-        if (lastCharacter != null ? !lastCharacter.equals(that.lastCharacter) : that.lastCharacter != null)
+        if (lastCharacters != null ? !lastCharacters.equals(that.lastCharacters) : that.lastCharacters != null)
             return false;
-        if (currentCharacter != null ? !currentCharacter.equals(that.currentCharacter) : that.currentCharacter != null)
+        if (currentCharacters != null ? !currentCharacters.equals(that.currentCharacters) : that.currentCharacters != null)
             return false;
         return !(formatterString != null ? !formatterString.equals(that.formatterString) : that.formatterString != null);
+
     }
 
     @Override
     public int hashCode() {
-        int result = lastCharacter != null ? lastCharacter.hashCode() : 0;
-        result = 31 * result + (currentCharacter != null ? currentCharacter.hashCode() : 0);
+        int result = lastCharacters != null ? lastCharacters.hashCode() : 0;
+        result = 31 * result + (currentCharacters != null ? currentCharacters.hashCode() : 0);
         result = 31 * result + (formatterString != null ? formatterString.hashCode() : 0);
         result = 31 * result + nestingLevel;
         return result;

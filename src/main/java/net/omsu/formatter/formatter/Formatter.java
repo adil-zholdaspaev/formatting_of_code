@@ -1,6 +1,6 @@
 package net.omsu.formatter.formatter;
 
-import net.omsu.formatter.reader.Reader;
+import net.omsu.formatter.formatter.strategy.ReaderStrategy;
 import net.omsu.formatter.writer.Writer;
 
 /**
@@ -8,5 +8,5 @@ import net.omsu.formatter.writer.Writer;
  */
 public interface Formatter {
 
-    void format(final Reader reader, final Writer writer);
+    void format(final ReaderStrategy readerStrategy, final Writer writer);
 }

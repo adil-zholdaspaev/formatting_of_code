@@ -15,14 +15,9 @@ public class OpenBraceHandler implements Handler {
     }
 
     @Override
-    public boolean handle(Context context) {
-        Character lastCharacter = context.getLastCharacter();
-        Character currentCharacter = context.getCurrentCharacter();
+    public void handle(Context context) {
+        String lastCharacter = context.getLastCharacters();
         int nestingLevel = context.getNestingLevel();
-
-        if (!currentCharacter.equals(permanentContext.getOpenBrace())) {
-            return false;
-        }
 
         context.setNestingLevel(nestingLevel + 1);
 
@@ -37,6 +32,5 @@ public class OpenBraceHandler implements Handler {
         }
 
         context.setFormattedString(result.toString());
-        return true;
     }
 }

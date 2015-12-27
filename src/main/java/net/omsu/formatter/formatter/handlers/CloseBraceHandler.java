@@ -15,28 +15,22 @@ public class CloseBraceHandler implements Handler {
     }
 
     @Override
-    public boolean handle(Context context) {
-        Character currentCharacter = context.getCurrentCharacter();
-        int nestingLevel = context.getNestingLevel();
+    public void handle(Context context) {
+        int nestingLevel = context.getNestingLevel() - 1;
 
-        if (!currentCharacter.equals(permanentContext.getCloseBrace())) {
-            return false;
-        }
-
-        context.setNestingLevel(nestingLevel - 1);
+        context.setNestingLevel(nestingLevel);
 
         final StringBuilder result = new StringBuilder();
         result.append(permanentContext.getNewLine());
-        for (int i = 0; i < nestingLevel - 1; i++) {
-            result.append("    ");
+        for (int i = 0; i < nestingLevel; i++) {
+            result.append(permanentContext.getTab());
         }
         result.append(permanentContext.getCloseBrace());
         result.append(permanentContext.getNewLine());
-        for (int i = 0; i < nestingLevel - 1; i++) {
+        for (int i = 0; i < nestingLevel; i++) {
             result.append(permanentContext.getTab());
         }
 
         context.setFormattedString(result.toString());
-        return true;
     }
 }

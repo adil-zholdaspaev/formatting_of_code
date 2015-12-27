@@ -15,13 +15,8 @@ public class SemicolonHandler implements Handler {
     }
 
     @Override
-    public boolean handle(Context context) {
-        Character currentCharacter = context.getCurrentCharacter();
+    public void handle(Context context) {
         int nestingLevel = context.getNestingLevel();
-
-        if (!currentCharacter.equals(permanentContext.getSemicolon())) {
-            return false;
-        }
 
         final StringBuilder result = new StringBuilder();
         result.append(permanentContext.getSemicolon());
@@ -31,6 +26,5 @@ public class SemicolonHandler implements Handler {
         }
 
         context.setFormattedString(result.toString());
-        return true;
     }
 }

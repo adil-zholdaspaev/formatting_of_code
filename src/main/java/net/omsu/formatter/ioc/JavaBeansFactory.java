@@ -6,6 +6,7 @@ import net.omsu.formatter.formatter.Formatter;
 import net.omsu.formatter.formatter.context.JavaPermanentContext;
 import net.omsu.formatter.formatter.context.factory.ContextFactory;
 import net.omsu.formatter.formatter.handlers.Handler;
+import net.omsu.formatter.formatter.strategy.ReaderStrategy;
 import net.omsu.formatter.reader.Reader;
 import net.omsu.formatter.writer.Writer;
 import org.slf4j.Logger;
@@ -14,8 +15,9 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -30,9 +32,8 @@ public class JavaBeansFactory implements BeansFactory {
         config = ConfigFactory.load();
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Reader buildReader() throws BeansFactoryException {
+    private Reader buildReader() throws BeansFactoryException {
         try {
             Class readerClass = Class.forName(config.getString("reader.class"));
             Constructor constructor = readerClass.getConstructor(String.class);
@@ -42,6 +43,21 @@ public class JavaBeansFactory implements BeansFactory {
 
             log.error("Encountered exception on constructing Reader bean", e);
             throw new BeansFactoryException("Encountered exception on constructing Reader bean", e);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public ReaderStrategy buildReaderStrategy() throws BeansFactoryException {
+        try {
+            Class readerClass = Class.forName(config.getString("reader-strategy.class"));
+            Constructor constructor = readerClass.getConstructor(Reader.class);
+            return (ReaderStrategy) constructor.newInstance(buildReader());
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                InvocationTargetException e) {
+
+            log.error("Encountered exception on constructing ReaderStrategy bean", e);
+            throw new BeansFactoryException("Encountered exception on constructing ReaderStrategy bean", e);
         }
     }
 
@@ -65,7 +81,7 @@ public class JavaBeansFactory implements BeansFactory {
     public Formatter buildFormatter() throws BeansFactoryException {
         try {
             Class readerClass = Class.forName(config.getString("formatter.class"));
-            Constructor constructor = readerClass.getConstructor(List.class, ContextFactory.class);
+            Constructor constructor = readerClass.getConstructor(Map.class, ContextFactory.class);
             return (Formatter) constructor.newInstance(buildHandlers(), buildContextFactory());
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException |
                 ClassNotFoundException e) {
@@ -76,12 +92,12 @@ public class JavaBeansFactory implements BeansFactory {
     }
 
     @SuppressWarnings("unchecked")
-    private List<Handler> buildHandlers() {
-        List<Handler> handlers = new ArrayList<>();
+    private Map<String, Handler> buildHandlers() {
+        Map<String, Handler> handlers = new HashMap<>();
 
         List<Config> configs = (List<Config>) config.getConfigList("handlers");
         for (Config handlerConfig : configs) {
-            handlers.add(buildHandler(handlerConfig.getString("class")));
+            handlers.put(handlerConfig.getString("key"), buildHandler(handlerConfig.getString("class")));
         }
         return handlers;
     }
@@ -112,13 +128,11 @@ public class JavaBeansFactory implements BeansFactory {
             throw new BeansFactoryException("Encountered exception on constructing Permanent Context bean", e);
         }
 
-        builder.setOpenBrace(config.getString("context.params.open-brace").charAt(0));
-        builder.setCloseBrace(config.getString("context.params.close-brace").charAt(0));
-        builder.setNewLine(config.getString("context.params.line-separator").charAt(0));
-        builder.setOpenBracket(config.getString("context.params.open-bracket").charAt(0));
-        builder.setCloseBracket(config.getString("context.params.open-bracket").charAt(0));
-        builder.setSemicolon(config.getString("context.params.semicolon").charAt(0));
-        builder.setSpace(config.getString("context.params.space").charAt(0));
+        builder.setOpenBrace(config.getString("context.params.open-brace"));
+        builder.setCloseBrace(config.getString("context.params.close-brace"));
+        builder.setNewLine(config.getString("context.params.line-separator"));
+        builder.setSemicolon(config.getString("context.params.semicolon"));
+        builder.setSpace(config.getString("context.params.space"));
         builder.setTab(config.getString("context.params.tab"));
 
         return builder.build();

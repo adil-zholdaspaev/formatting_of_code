@@ -15,24 +15,14 @@ public class SpaceHandler implements Handler {
     }
 
     @Override
-    public boolean handle(Context context) {
-        Character lastCharacter = context.getLastCharacter();
-        Character currentCharacter = context.getCurrentCharacter();
+    public void handle(Context context) {
+        String lastCharacter = context.getLastCharacters();
 
-        if (!currentCharacter.equals(permanentContext.getSpace())) {
-            return false;
+        if (lastCharacter.equals(permanentContext.getSpace())) {
+            context.setFormattedString("");
+            return;
         }
 
-        if (lastCharacter.equals(permanentContext.getOpenBrace()) ||
-                lastCharacter.equals(permanentContext.getCloseBrace()) ||
-                lastCharacter.equals(permanentContext.getSpace()) ||
-                lastCharacter.equals(permanentContext.getSemicolon()) ||
-                lastCharacter.equals(permanentContext.getNewLine())) {
-
-            return false;
-        }
-
-        context.setFormattedString(String.valueOf(permanentContext.getSpace()));
-        return true;
+        context.setFormattedString(permanentContext.getSpace());
     }
 }

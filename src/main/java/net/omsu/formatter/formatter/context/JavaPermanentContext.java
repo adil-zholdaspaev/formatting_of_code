@@ -5,48 +5,38 @@ package net.omsu.formatter.formatter.context;
  */
 public class JavaPermanentContext {
 
-    private char openBrace = '{';
-    private char closeBrace = '}';
-    private char semicolon = ';';
-    private char space = ' ';
-    private char newLine = '\n';
-    private String tab = "    ";
-    private char openBracket = '(';
-    private char closeBracket = ')';
+    private String openBrace;
+    private String closeBrace;
+    private String semicolon;
+    private String space;
+    private String newLine;
+    private String tab;
 
     private JavaPermanentContext() {
     }
 
-    public char getOpenBrace() {
+    public String getOpenBrace() {
         return openBrace;
     }
 
-    public char getCloseBrace() {
+    public String getCloseBrace() {
         return closeBrace;
     }
 
-    public char getSemicolon() {
+    public String getSemicolon() {
         return semicolon;
     }
 
-    public char getSpace() {
+    public String getSpace() {
         return space;
     }
 
-    public char getNewLine() {
+    public String getNewLine() {
         return newLine;
     }
 
     public String getTab() {
         return tab;
-    }
-
-    public char getOpenBracket() {
-        return openBracket;
-    }
-
-    public char getCloseBracket() {
-        return closeBracket;
     }
 
     public static Builder newBuilder() {
@@ -58,43 +48,33 @@ public class JavaPermanentContext {
         private Builder() {
         }
 
-        public Builder setOpenBrace(final char openBrace) {
+        public Builder setOpenBrace(final String openBrace) {
             JavaPermanentContext.this.openBrace = openBrace;
             return this;
         }
 
-        public Builder setCloseBrace(final char closeBrace) {
+        public Builder setCloseBrace(final String closeBrace) {
             JavaPermanentContext.this.closeBrace = closeBrace;
             return this;
         }
 
-        public Builder setSemicolon(final char semicolon) {
+        public Builder setSemicolon(final String semicolon) {
             JavaPermanentContext.this.semicolon = semicolon;
             return this;
         }
 
-        public Builder setSpace(final char space) {
+        public Builder setSpace(final String space) {
             JavaPermanentContext.this.space = space;
             return this;
         }
 
-        public Builder setNewLine(final char newLine) {
+        public Builder setNewLine(final String newLine) {
             JavaPermanentContext.this.newLine = newLine;
             return this;
         }
 
         public Builder setTab(final String tab) {
             JavaPermanentContext.this.tab = tab;
-            return this;
-        }
-
-        public Builder setOpenBracket(final char openBracket) {
-            JavaPermanentContext.this.openBracket = openBracket;
-            return this;
-        }
-
-        public Builder setCloseBracket(final char closeBracket) {
-            JavaPermanentContext.this.closeBracket = closeBracket;
             return this;
         }
 
