@@ -22,7 +22,7 @@ public class OpenBraceHandler implements Handler {
         context.setNestingLevel(nestingLevel + 1);
 
         final StringBuilder result = new StringBuilder();
-        if (!lastCharacter.equals(permanentContext.getSpace())) {
+        if (!lastCharacter.equals(permanentContext.getSpace()) && !lastCharacter.equals(permanentContext.getOpenBrace())) {
             result.append(permanentContext.getSpace());
         }
         result.append(permanentContext.getOpenBrace());
